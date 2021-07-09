@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PDMFinanceApp</string>
+    <string name="btn_save">Salvar</string>
+    <string name="stg_description">Descrição</string>
+    <string name="stg_value">Valor</string>
+    <string name="btn_no">Não</string>
+    <string name="btn_yes">Sim</string>
+    <string name="stg_relatory1">Relatório Financeiro</string>
+    <string name="stg_relatory2">Você deseja emitir um relatório de finanças?</string>
+    <string-array name="opc">
+        <item>Credito</item>
+        <item>Debito</item>
+    </string-array>
+</resources>
