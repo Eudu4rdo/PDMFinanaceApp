@@ -44,5 +44,11 @@ public class DAOTransactionSingleton {
 
     public void addTransaction(Context context, Transaction transaction) {
         this.transactions.add(transaction);
+        try {
+            this.initializeFileManager(context).save(transaction);
+        } catch (IOException e) {
+            Toast.makeText(context, "FileErr: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
     }
 }

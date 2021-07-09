@@ -17,13 +17,13 @@ import br.com.pdmfinance2.model.Transaction;
 class FileManager {
     /* CSV - Comma Separated Values (formato estruturado de dados de arquivo)
     Divida com agiota; -R$;30000\n
-    Venda de produtos duvidosos;-R$;800\n
+    Venda de produtos duvidosos;R$;800\n
      */
     private static final Date data = new Date();
     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     String dataFormatada = dateFormat.format(data);
     String nome = dataFormatada.toString()+".csv";
-    private final String FILENAME = nome;
+    private final String FILENAME = "nome";
     private File file;
 
     FileManager(Context context) {
@@ -49,14 +49,14 @@ class FileManager {
 
     private Transaction csvRowToTransaction(String row) {
         String[] transStr = row.split(";");
-        String opc = transStr[0];
-        String desc = transStr[1];
+        String desc = transStr[0];
+        String opc= transStr[1];
         float value = Float.parseFloat(transStr[2]);
         return new Transaction(desc, opc, value);
     }
 
     private String transactionToCsvRow(Transaction transaction) {
-        return transaction.getDescription()+";"+"R$"+transaction.getValue()+"\n";
+        return transaction.getDescription()+";"+transaction.getTipo()+";"+transaction.getValue()+"\n";
     }
 
     protected void save(Transaction transaction) throws IOException {

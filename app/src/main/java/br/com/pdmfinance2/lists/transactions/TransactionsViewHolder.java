@@ -32,7 +32,7 @@ public class TransactionsViewHolder extends RecyclerView.ViewHolder{
 
     public void bind(Transaction transaction) {
         this.txtDescription.setText(transaction.getDescription());
-        this.txtValue.setText(transaction.getValue().toString());
+        this.txtValue.setText("R$ "+transaction.getValue().toString());
         if(transaction.getTipo().equals("Debito"))
         {
             this.img.setBackgroundColor(0xFFFF0303);
