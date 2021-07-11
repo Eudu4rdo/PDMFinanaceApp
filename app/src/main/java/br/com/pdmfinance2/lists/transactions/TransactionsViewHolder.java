@@ -33,11 +33,10 @@ public class TransactionsViewHolder extends RecyclerView.ViewHolder{
     public void bind(Transaction transaction) {
         this.txtDescription.setText(transaction.getDescription());
         this.txtValue.setText("R$ "+transaction.getValue().toString());
-        if(transaction.getTipo().equals("Debito"))
+        if(transaction.getValue()<0)
         {
             this.img.setBackgroundColor(0xFFFF0303);
         }
         this.currentTransaction = transaction;
-
     }
 }

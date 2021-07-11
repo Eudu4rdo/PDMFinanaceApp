@@ -24,7 +24,6 @@ public class TransactionActivity extends Fragment implements View.OnClickListene
     private EditText edtDescription;
     private EditText edtPrice;
     private Spinner spinner;
-
     private Button btnSave;
 
     @Override
@@ -44,13 +43,13 @@ public class TransactionActivity extends Fragment implements View.OnClickListene
                 {
                     return;
                 }
-                float Price = Float.parseFloat(PriceSt);
+                float value = Float.parseFloat(PriceSt);
                 if(sopc.equals("Debito"))
                 {
-                    Price= Price*-1;
+                    value= value*-1;
                 }
-                String mostrar=String.valueOf(Price);
-                Transaction transaction = new Transaction(Description, sopc,Price);
+                String mostrar=String.valueOf(value);
+                Transaction transaction = new Transaction(Description,value);
                 Toast.makeText(activity.getApplicationContext(), mostrar, Toast.LENGTH_LONG).show();
                 DAOTransactionSingleton.getINSTANCE().addTransaction(view.getContext(), transaction);
                 getActivity();

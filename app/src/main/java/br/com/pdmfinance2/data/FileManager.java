@@ -50,13 +50,12 @@ class FileManager {
     private Transaction csvRowToTransaction(String row) {
         String[] transStr = row.split(";");
         String desc = transStr[0];
-        String opc= transStr[1];
-        float value = Float.parseFloat(transStr[2]);
-        return new Transaction(desc, opc, value);
+        float value = Float.parseFloat(transStr[1]);
+        return new Transaction(desc, value);
     }
 
     private String transactionToCsvRow(Transaction transaction) {
-        return transaction.getDescription()+";"+transaction.getTipo()+";"+transaction.getValue()+"\n";
+        return transaction.getDescription()+";"+transaction.getValue()+"\n";
     }
 
     protected void save(Transaction transaction) throws IOException {
