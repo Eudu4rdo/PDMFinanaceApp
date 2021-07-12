@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 import br.com.pdmfinance2.R;
@@ -32,10 +34,12 @@ public class ListActivity extends Fragment  implements View.OnClickListener{
     private TextView txtSaldo;
     private RecyclerView rvTransaction;
     private ArrayList<Transaction> transactions;
+    private TextView listavazia;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         txtSaldo= view.findViewById(R.id.txtSaldo);
+        listavazia= view.findViewById(R.id.listavazia);
         new TransactionListBuilder(view,R.id.rvTransaction).load(DAOTransactionSingleton.getINSTANCE().getTransactions(this.getContext()));
         transactions=DAOTransactionSingleton.getINSTANCE().getTransactions(this.getContext());
         for(int i =0; i<transactions.size();i++)
@@ -48,23 +52,42 @@ public class ListActivity extends Fragment  implements View.OnClickListener{
         fabRelatory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setTitle(R.string.stg_relatory1);
-                    builder.setMessage(R.string.stg_relatory2)
-                            .setPositiveButton(R.string.btn_yes, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle(R.string.stg_relatory1);
+                builder.setMessage(R.string.stg_relatory2)
+                        .setPositiveButton(R.string.btn_yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
 
-                                    Toast.makeText(getActivity().getApplicationContext(), "Relatorio sendo gerado...", Toast.LENGTH_LONG).show();
-                                }
-                            })
-                            .setNegativeButton(R.string.btn_no, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                }
-                            });
-                    // Create the AlertDialog object and return it
-                    builder.create().show();
-           }
+                                Toast.makeText(getActivity().getApplicationContext(), "O relatorio foi gerado automaticamente", Toast.LENGTH_LONG).show();
+                                // AQUI ADICONARIA AS TRANSAÇÕES ATRAVES DO BOTAO NO csv, POREM OPTEI POR FAZER O SALVAMENTO AUTOMATICO PARA AJUDAR NA PERSISTENCIA
+                                //for(int i =0; i<transactions.size();i++)
+                                //{
+                                //    DAOTransactionSingleton.getINSTANCE().addTransaction(view.getContext(), transactions.get(i));
+                                //}
+                            }
+                        })
+                        .setNegativeButton(R.string.btn_no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                            }
+                        });
+                // Create the AlertDialog object and return it
+                builder.create().show();
+            }
         });
+        if(transactions.isEmpty())
+        {
+                //SUMI COM O BOTÃO
+               fabRelatory.setVisibility(View.GONE);
+               //MOSTRAR O TEXTO
+               listavazia.setVisibility(View.VISIBLE);
+        }else
+            {
+                //SUMI COM O BOTÃO
+                fabRelatory.setVisibility(View.VISIBLE);
+                //MOSTRAR O TEXTO
+                listavazia.setVisibility(View.GONE);
+
+            }
 
     }
 
